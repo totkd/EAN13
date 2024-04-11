@@ -1,169 +1,177 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.0/JsBarcode.all.min.js"></script>
-  <script>
-    const textBox = document.getElementById("text-box");
-    const generateButton = document.getElementById("generate-button");
-    const barcodeContainer = document.getElementById("barcode-container");
-    const clearButton = document.getElementById("clear-button"); // Get the clear button reference here
+    <head>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+                        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                            <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.0/JsBarcode.all.min.js"></script>
+                                <title>genBarcodeTool (EAN-13)</title>
+                                <style>
+                                    .lato-thin {
+                                        font-family: "Lato", sans-serif;
+                                        font-weight: 100;
+                                        font-style: normal;
+                                    }
+                                    
+                                    .lato-light {
+                                        font-family: "Lato", sans-serif;
+                                        font-weight: 300;
+                                        font-style: normal;
+                                    }
+                                    
+                                    .lato-regular {
+                                        font-family: "Lato", sans-serif;
+                                        font-weight: 400;
+                                        font-style: normal;
+                                    }
+                                    
+                                    .lato-bold {
+                                        font-family: "Lato", sans-serif;
+                                        font-weight: 700;
+                                        font-style: normal;
+                                    }
+                                    
+                                    .lato-black {
+                                        font-family: "Lato", sans-serif;
+                                        font-weight: 900;
+                                        font-style: normal;
+                                    }
+                                    
+                                    .lato-thin-italic {
+                                        font-family: "Lato", sans-serif;
+                                        font-weight: 100;
+                                        font-style: italic;
+                                    }
+                                    
+                                    .lato-light-italic {
+                                        font-family: "Lato", sans-serif;
+                                        font-weight: 300;
+                                        font-style: italic;
+                                    }
+                                    
+                                    .lato-regular-italic {
+                                        font-family: "Lato", sans-serif;
+                                        font-weight: 400;
+                                        font-style: italic;
+                                    }
+                                    
+                                    .lato-bold-italic {
+                                        font-family: "Lato", sans-serif;
+                                        font-weight: 700;
+                                        font-style: italic;
+                                    }
+                                    
+                                    .lato-black-italic {
+                                        font-family: "Lato", sans-serif;
+                                        font-weight: 900;
+                                        font-style: italic;
+                                    }
+                                    
+                                    body {
+                                        font-family: "Lato";
+                                    }
+                                    
+                                    #main-container {
+                                        display: flex;
+                                        flex-direction: column;
+                                        align-items: center;
+                                    }
+                                    
+                                    #input-container {
+                                        margin: 20px 0;
+                                    }
+                                    
+                                    #text-box {
+                                        width: 300px;
+                                        height: 150px;
+                                        padding: 5px;
+                                        font-size: 16px;
+                                    }
+                                    
+                                    #generate-button {
+                                        margin-left: 10px;
+                                        padding: 5px 10px;
+                                        font-size: 16px;
+                                        cursor: pointer;
+                                    }
+                                    
+                                    #barcode-container {
+                                        margin-top: 20px;
+                                        display: flex;
+                                        flex-wrap: wrap;
+                                        justify-content: center
+                                        
+                                        #barcode-image {
+                                            width: 300px;
+                                            height: 100px;
+                                            margin: 10px;
+                                        }
+                                        
+                                        #barcode-container img {
+                                            margin-bottom: 50px;
+                                        }
+                                    </style>
+                            </head>
+    <body>
+      <div id="main-container">
+        <div class="p-3 mb-2 bg-danger-subtle lato-bold">genBarcodeTool (EAN-13)</div>
+        <script>
+          window.addEventListener('DOMContentLoaded', () => {
+            const textBox = document.getElementById("text-box");
+            const generateButton = document.getElementById("generate-button");
+            const barcodeContainer = document.getElementById("barcode-container");
+            const clearButton = document.getElementById("clear-button");
 
-    generateButton.addEventListener("click", () => {
-      let counter = 0; // カウント変数を初期化
-      const numbers = textBox.value.split(/\r?\n/);
-      numbers.forEach(number => {
-        if (number === "") return;
-        const barcodeImage = document.createElement("img");
-        barcodeImage.id = "barcode-image";
-        JsBarcode(barcodeImage, number, {
-          format: "EAN13",
-          width: 1.5,
-          height: 100,
-        });
-        barcodeContainer.appendChild(barcodeImage);
+            generateButton.addEventListener("click", () => {
+              let counter = 0; // カウント変数を初期化
+              const numbers = textBox.value.split(/\r?\n/);
+              numbers.forEach(number => {
+                if (number === "") return;  // 空白行はスキップ
 
-        if (counter === 5) {
-          // 5個目のバーコードの後であれば、改行を入れる
-          const br = document.createElement("br");
-          barcodeContainer.appendChild(br);
-          counter = 0; // カウンターをリセット
-        }
-        counter++;
-      });
-    });
+                // **入力値の桁数を確認 (13桁でなければスキップ)**
+                if (number.length !== 13) {
+                  console.warn(`"${number}" is not a valid EAN-13 code (length should be 13)`);
+                  return;
+                }
 
-    // Clear button event listener (placed outside the loop)
-    clearButton.addEventListener("click", () => {
-      textBox.value = ""; // テキストボックスをクリア
-      barcodeContainer.innerHTML = ""; // バーコードをクリア
-    });
-  </script>
-  <title>genBarcodeTool (EAN-13)</title>
-  <style>
-    .lato-thin {
-      font-family: "Lato", sans-serif;
-      font-weight: 100;
-      font-style: normal;
-    }
+                const barcodeImage = document.createElement("img");
+                barcodeImage.id = "barcode-image";
+                JsBarcode(barcodeImage, number, {
+                  format: "EAN13",
+                  width: 1.5,
+                  height: 100,
+                });
+                barcodeContainer.appendChild(barcodeImage);
 
-    .lato-light {
-      font-family: "Lato", sans-serif;
-      font-weight: 300;
-      font-style: normal;
-    }
+                if (counter === 5) {
+                  // 5個目のバーコードの後であれば、改行を入れる
+                  const br = document.createElement("br");
+                  barcodeContainer.appendChild(br);
+                  counter = 0; // カウンターをリセット
+                }
+                counter++;
+              });
+            });
 
-    .lato-regular {
-      font-family: "Lato", sans-serif;
-      font-weight: 400;
-      font-style: normal;
-    }
+            // Clear button event listener (placed outside the loop)
+            clearButton.addEventListener("click", () => {
+              textBox.value = ""; // テキストボックスをクリア
+              barcodeContainer.innerHTML = ""; // バーコードをクリア
+            });
+          });
+        </script>
 
-    .lato-bold {
-      font-family: "Lato", sans-serif;
-      font-weight: 700;
-      font-style: normal;
-    }
+        <div id="input-container">
+          <textarea id="text-box" placeholder="数字を入力 (改行で複数可)" style="height: 200px;"></textarea>
+          <button id="generate-button" type="button" class="btn btn-dark">Go!</button>
+          <button id="clear-button" type="button" class="btn btn-secondary">CLEAR</button>
+        </div>
+        <div id="barcode-container" style="flex-wrap: wrap;"></div>
+      </div>
 
-    .lato-black {
-      font-family: "Lato", sans-serif;
-      font-weight: 900;
-      font-style: normal;
-    }
-
-    .lato-thin-italic {
-      font-family: "Lato", sans-serif;
-      font-weight: 100;
-      font-style: italic;
-    }
-
-    .lato-light-italic {
-      font-family: "Lato", sans-serif;
-      font-weight: 300;
-      font-style: italic;
-    }
-
-    .lato-regular-italic {
-      font-family: "Lato", sans-serif;
-      font-weight: 400;
-      font-style: italic;
-    }
-
-    .lato-bold-italic {
-      font-family: "Lato", sans-serif;
-      font-weight: 700;
-      font-style: italic;
-    }
-
-    .lato-black-italic {
-      font-family: "Lato", sans-serif;
-      font-weight: 900;
-      font-style: italic;
-    }
-
-    body {
-      font-family: "Lato";
-    }
-
-    #main-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    #input-container {
-      margin: 20px 0;
-    }
-
-    #text-box {
-      width: 300px;
-      height: 150px;
-      padding: 5px;
-      font-size: 16px;
-    }
-
-    #generate-button {
-      margin-left: 10px;
-      padding: 5px 10px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    #barcode-container {
-      margin-top: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    #barcode-image {
-      width: 300px;
-      height: 100px;
-      margin: 10px;
-    }
-
-    #barcode-container img {
-      margin-bottom: 50px;
-    }
-  </style>
-</head>
-<body>
-  <div id="main-container">
-    <div class="p-3 mb-2 bg-danger-subtle lato-bold">genBarcodeTool (EAN-13)</div>
-    <div id="input-container">
-      <textarea id="text-box" placeholder="数字を入力 (改行で複数可)" style="height: 150px;"></textarea>
-      <button id="generate-button" type="button" class="generate-button btn btn-dark">Go!</button>
-      <button id="clear-button" type="button" class="clear-button btn btn-secondary">CLEAR</button>
-    </div>
-    <div id="barcode-container" style="flex-wrap: wrap;"></div>
-  </div>
-
-<!--    <div class="sticky-bottom">Gion Delivery Service 2024.</div> -->
-</body>
-</html>
+      </body>
+    </html>
 
