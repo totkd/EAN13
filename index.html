@@ -3,10 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EAN-13バーコード生成</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+  <title>genBarcodeTool (EAN-13)</title>
   <style>
+.lato-thin {
+  font-family: "Lato", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.lato-light {
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.lato-regular {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.lato-bold {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.lato-black {
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.lato-thin-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.lato-light-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.lato-regular-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.lato-bold-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.lato-black-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
     body {
-      font-family: sans-serif;
+      font-family: "Lato";
     }
     #main-container {
       display: flex;
@@ -46,14 +109,14 @@
 </head>
 <body>
   <div id="main-container">
-    <h2>EAN-13バーコード生成</h2>
+    <div class="p-3 mb-2 bg-danger-subtle lato-bold">genBarcodeTool (EAN-13)</div>
 <div id="input-container">
   <textarea id="text-box" placeholder="数字を入力 (改行で複数可)" style="height: 150px;"></textarea>
-  <button id="generate-button">Go!</button>
-  <button id="clear-button">CLEAR</button>
-</div>    <div id="barcode-container" style="flex-wrap: wrap;">
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.0/JsBarcode.all.min.js"></script>
+  <button id="generate-button type="button" class="btn btn-dark">Go!</button>
+  <button id="clear-button" type="button" class="btn btn-secondary">CLEAR</button>
+</div>
+<div id="barcode-container" style="flex-wrap: wrap;"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.0/JsBarcode.all.min.js"></script>
   <script>
     const textBox = document.getElementById("text-box");
     const generateButton = document.getElementById("generate-button");
@@ -87,6 +150,8 @@ clearButton.addEventListener("click", () => {
         counter++;
       });
     });
-  </script>
+</script>
+    <div class="sticky-bottom">Gion Delivery Service 2024.</div>
 </body>
 </html>
+                                                
