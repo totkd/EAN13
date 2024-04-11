@@ -117,7 +117,9 @@
                             </head>
     <body>
       <div id="main-container">
-        <div class="p-3 mb-2 bg-danger-subtle lato-bold">genBarcodeTool (EAN-13)</div>
+        <div class="fs-2 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3 lato-bold">　genBarcodeTool (EAN-13)　</div>
+        <div class="fs-6 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3 lato">Gion Delivery Service KK 2024</div>
+        
         <script>
           window.addEventListener('DOMContentLoaded', () => {
             const textBox = document.getElementById("text-box");
@@ -133,7 +135,7 @@
 
                 // **入力値の桁数を確認 (13桁でなければスキップ)**
                 if (number.length !== 13) {
-                  console.warn(`"${number}" is not a valid EAN-13 code (length should be 13)`);
+                  console.warn(`"${number}" は桁数が違うのでバーコードにしません(13桁だよー)`);
                   return;
                 }
 
