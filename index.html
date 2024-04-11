@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EAN-13バーコード作成機</title>
+  <title>EAN-13バーコード生成</title>
   <style>
     body {
       font-family: sans-serif;
@@ -47,11 +47,11 @@
 <body>
   <div id="main-container">
     <h2>EAN-13バーコード生成</h2>
-    <div id="input-container">
-      <textarea id="text-box" placeholder="数字を入力 (改行で複数可)" style="height: 150px;"></textarea>
-      <button id="generate-button">Go!</button>
-    </div>
-    <div id="barcode-container" style="flex-wrap: wrap;">
+<div id="input-container">
+  <textarea id="text-box" placeholder="数字を入力 (改行で複数可)" style="height: 150px;"></textarea>
+  <button id="generate-button">Go!</button>
+  <button id="clear-button">CLEAR</button>
+</div>    <div id="barcode-container" style="flex-wrap: wrap;">
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.0/JsBarcode.all.min.js"></script>
   <script>
@@ -72,7 +72,12 @@
           height: 100,
         });
         barcodeContainer.appendChild(barcodeImage);
+const clearButton = document.getElementById("clear-button");
 
+clearButton.addEventListener("click", () => {
+  textBox.value = ""; // テキストボックスをクリア
+  barcodeContainer.innerHTML = ""; // バーコードをクリア
+});
         if (counter === 5) {
           // 5個目のバーコードの後であれば、改行を入れる
           const br = document.createElement("br");
@@ -83,7 +88,5 @@
       });
     });
   </script>
-<footer>Gion Delivery Service KK. 2024</footer>
 </body>
 </html>
-
