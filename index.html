@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EAN-13バーコード生成</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+    #main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #input-container {
+      margin: 20px 0;
+    }
+    #text-box {
+      width: 300px;
+      height: 150px;
+      padding: 5px;
+      font-size: 16px;
+    }
+    #generate-button {
+      margin-left: 10px;
+      padding: 5px 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #barcode-container {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    #barcode-image {
+      width: 300px;
+      height: 100px;
+      margin: 10px;
+    }
+    #barcode-container img {
+      margin-bottom: 50px; // 行間を調整
+    }
+  </style>
+</head>
+<body>
+  <div id="main-container">
+    <h2>EAN-13バーコード生成</h2>
+    <div id="input-container">
+      <textarea id="text-box" placeholder="数字を入力 (改行で複数可)" style="height: 150px;"></textarea>
+      <button id="generate-button">生成</button>
+    </div>
+    <div id="barcode-container" style="flex-wrap: wrap;">
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.0/JsBarcode.all.min.js"></script>
+  <script>
+    const textBox = document.getElementById("text-box");
+    const generateButton = document.getElementById("generate-button");
+    const barcodeContainer = document.getElementById("barcode-container");
+
+    generateButton.addEventListener("click", () => {
+      let counter = 0; // カウント変数を初期化
+      const numbers = textBox.value.split(/\r?\n/);
+      numbers.forEach(number => {
+        if (number === "") return;
+        const barcodeImage = document.createElement("img");
+        barcodeImage.id = "barcode-image";
+        JsBarcode(barcodeImage, number, {
+          format: "EAN13",
+          width: 1.5,
+          height: 100,
+        });
+        barcodeContainer.appendChild(barcodeImage);
+
+        if (counter === 5) {
+          // 5個目のバーコードの後であれば、改行を入れる
+          const br = document.createElement("br");
+          barcodeContainer.appendChild(br);
+          counter = 0; // カウンターをリセット
+        }
+        counter++;
+      });
+    });
+  </script>
+</body>
+</html>
+
