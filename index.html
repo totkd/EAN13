@@ -258,7 +258,7 @@
         <a class="credit" href="https://www.gion-deliveryservice.co.jp/" target="_blank">GION DELIVERY SERVICE KK
             2025</a>
         <a class="ghlink" href="https://github.com/totkd/EAN13" target="_blank" rel="noopener noreferrer"
-            aria-label="GitHub リポジトリ">
+            aria-label="GitHub Repository">
             <!-- Octocat mark（MITライセンスのOcticonsパス） -->
             <svg viewBox="0 0 16 16" aria-hidden="true">
                 <path
@@ -435,7 +435,7 @@
             frag.appendChild(summary);
 
             if (dupsSet.size > 0) {
-                const t = document.createElement('div'); t.textContent = "うち、重複している数値は次の通り："; frag.appendChild(t);
+                const t = document.createElement('div'); t.textContent = "重複していた数値は次の通り："; frag.appendChild(t);
                 const list = document.createElement('div'); list.className = 'indent-list';
                 for (const d of dupsSet) { const line = document.createElement('div'); const code = document.createElement('code'); code.textContent = d; line.appendChild(code); list.appendChild(line); }
                 frag.appendChild(list);
